@@ -1,34 +1,39 @@
-import Link from 'next/link'
-
+import React from 'react'
+import { Link } from '../routes'
+import slug from '../helpers/slug'
 export default class PodcastClips extends React.Component {
-  render(){
+  render () {
+    const { clip } = this.props
 
-    const {clip} = this.props
-
-    return(
-    <>
-        <div className="modal">
-            <div className="clip">
-              <nav>
-                <Link href={`/channel?id=${clip.channel.id}`}>
-                  <a className="close">&lt; Volver</a>
-                </Link>
-              </nav>
-              <picture>
+    return (
+      <>
+        <div className='modal'>
+          <div className='clip'>
+            <nav>
+              <Link
+                route='channel' params={{
+                  slug: slug(clip.channel.title),
+                  id: clip.channel.id
+                }}
+              >
+                <a className='close'>&lt; Volver</a>
+              </Link>
+            </nav>
+            <picture>
               <div style={{ backgroundImage: `url(${clip.urls.image || clip.channel.urls.logo_image.original})` }} />
-              </picture>
+            </picture>
 
-              <div className='player'>
-              <h3>{ clip.title }</h3>
-              <h6>{ clip.channel.title }</h6>
-              <audio controls autoPlay={true}>
+            <div className='player'>
+              <h3>{clip.title}</h3>
+              <h6>{clip.channel.title}</h6>
+              <audio controls autoPlay>
                 <source src={clip.urls.high_mp3} type='audio/mpeg' />
               </audio>
             </div>
 
-            </div>
           </div>
-          <style jsx>{`
+        </div>
+        <style jsx>{`
           nav {
             background: none;
           }
@@ -87,7 +92,8 @@ export default class PodcastClips extends React.Component {
             bottom: 0;
             z-index: 99999;
           }
-        `}</style>
+        `}
+        </style>
 
         <style jsx global>{`
           body {
@@ -95,8 +101,9 @@ export default class PodcastClips extends React.Component {
             font-family: system-ui;
             background: white;
           }
-        `}</style>
-    </>
+        `}
+        </style>
+      </>
     )
   }
 }

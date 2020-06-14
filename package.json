@@ -3,15 +3,19 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "next",
-    "start": "next start",
-    "build": "next build"
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "NODE_ENV=production node server.js"
   },
   "license": "MIT",
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
     "next": "^9.4.0",
+    "next-routes": "^1.4.2",
+    "nprogress": "^0.2.0",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
-  }
+    "react-dom": "^16.13.1",
+    "slugify": "^1.4.0"
+  },
+  "devDependencies": {}
 }

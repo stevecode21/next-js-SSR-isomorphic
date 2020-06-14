@@ -1,26 +1,37 @@
-import Link from 'next/link'
-export default class PodcastList extends React.Component{
+import React from 'react'
+import {Link} from '../routes'
+import slug from '../helpers/slug'
+export default class PodcastList extends React.Component {
+  render () {
+    const { podcasts, onClickPodcast } = this.props
 
-  render(){
-    const {audioClips} = this.props
+    return (
+      <div>
 
-    return(
-    <div>
-  
-      <h2>Últimos podcasts</h2>
-      
-      {audioClips.map((clip)=>(
-        <Link href={`/podcast?id=${clip.id}`} key={clip.id}>
-          <a className="podcast">
-            <h3>{clip.title}</h3>
-            <div className="meta">
-              {Math.ceil(clip.duration / 60)} minutes
-            </div>
-          </a>
-        </Link>
-      ))}
+        <h2>Últimos podcasts</h2>
 
-      <style jsx>{`
+        { podcasts.map((podcast) => (
+          <Link
+            route='podcast' params={{
+              slug: slug(podcast.title),
+              id: podcast.id,
+              slugChannel: slug(podcast.channel.title),
+              idChannel: podcast.channel.id
+            }} key={podcast.id}
+          >
+            <a 
+              className='podcast'
+              onClick={event => onClickPodcast(event, clip)}
+            >
+              <h3>{podcast.title}</h3>
+              <div className='meta'>
+                {Math.ceil(podcast.duration / 60)} minutes
+              </div>
+            </a>
+          </Link>
+        ))}
+
+        <style jsx>{`
           h2 {
             padding: 5px;
             font-size: 0.9em;
@@ -47,7 +58,9 @@ export default class PodcastList extends React.Component{
             margin-top: 0.5em;
             font-size: 0.8em;
           }
-      `}</style>
-    </div>
-    )}
+      `}
+        </style>
+      </div>
+    )
+  }
 }

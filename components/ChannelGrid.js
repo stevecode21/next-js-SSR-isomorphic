@@ -1,18 +1,27 @@
-import Link from 'next/link'
-export default class ChannelGrid extends React.Component{
-  render(){
-
-    // Traemos la prop channel
-    const {channels} = this.props
-    // Aquí usaremos la renderización de todos los channels que pedimos con el fetch
-    return(
-      <div className="channels">
-        {channels.map((channel)=> (
-          <Link href={`/channel?id=${channel.id}`}>
-              <a className="channel" >
-                <img src={channel.urls.logo_image.original} alt=""/>
-                <h2>{channel.title}</h2>
-              </a>
+import React from 'react'
+// Ahora lo que hacemos es usar el link pero de routes que es donde estamos importante next-route, especificando con ({}) que queremos ese elemento precisamente
+import { Link } from '../routes'
+// Importamos el helper
+import slug from '../helpers/slug'
+export default class ChannelGrid extends React.Component {
+  render () {
+    const { channels } = this.props
+    return (
+      <div className='channels'>
+        {channels.map((channel) => (
+          // A diferencia del link actual que usabamos propio de Next, este cambia un poco su uso, ya no será necesario un href y por el contrario usaremos "route", que será hacia qué ruta que ruta queremos dirigirnos y "params", que básicamente es, cómo voy a construir esa ruta (named)
+          <Link
+            route='channel' params={{
+            // Para el slug, que finalmente será el nombre del canal, los mostraremos llamando nuestra función slug, enviando por parametro el title del channel
+              slug: slug(channel.title),
+              // el id será igual al id del channel solicitado por le usuario
+              id: channel.id
+            }} key={channel.id}
+          >
+            <a className='channel'>
+              <img src={channel.urls.logo_image.original} alt='' />
+              <h2>{channel.title}</h2>
+            </a>
           </Link>
         ))}
         <style jsx>
@@ -40,8 +49,8 @@ export default class ChannelGrid extends React.Component{
               text-align: center;
             }
           `}
-        </style>  
-        </div>
+        </style>
+      </div>
     )
   }
 }

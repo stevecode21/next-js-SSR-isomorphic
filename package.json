@@ -12,6 +12,7 @@
     "isomorphic-fetch": "^2.2.1",
     "next": "^9.4.0",
     "next-routes": "^1.4.2",
+    "now": "^19.1.0",
     "nprogress": "^0.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

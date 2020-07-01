@@ -1,4 +1,4 @@
-# App de Podcast de curso de Next JS
+# App de Podcast con API de Audioboom
 
 App de Podcast integrada con la API de AudioBoom para aprender NextJS
 
